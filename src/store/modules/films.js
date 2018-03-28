@@ -13,7 +13,7 @@ const state = {
 const mutations = {
   [types.FILM_GET_NOWPLAYING](state,res) {
     state.nowList = state.nowList.concat(res.films)
-    state.getNowMore = res.page.current<res.page.total ? true : false
+    state.getNowMore = res.page.current<res.page.total
   },
   [types.FILE_NOWPLAYING_NUM](state) {
     state.thisPage += 1
@@ -21,7 +21,7 @@ const mutations = {
   },
   [types.FILM_GET_COMINGSOON](state,res) {
     state.comingList =  state.comingList.concat(res.films)
-    state.getComingMore = res.page.current<res.page.total ? true : false
+    state.getComingMore = res.page.current<res.page.total
   },
   [types.FILM_COMINGSOON_NUM](state) {
     state.comingPage += 1

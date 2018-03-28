@@ -39,7 +39,7 @@
     created() {
       document.body.scrollTop = 0 
       this.type = this.$route.params.type
-      this.jugdge()
+      this.judge()
     },
     data() {
       return {
@@ -48,10 +48,17 @@
     },
     methods: {
       ...mapActions(['getNowPlayingList','getComingList']),
-      getMore() {
-
+      getMore(el) {
+        let sTop = document.documentElement.scrollTop || document.body.scrollTop
+        if(sTop + window.innerHeight > el.clientHeight-100) {
+          if(this.$route.params.type == 'now-playing') {
+            this.getNowPlayingList()
+          } else if (this.$route.params.type == 'coming-soon' ) {
+            this.getComingList()
+          }
+        } 
       },
-      jugdge() {
+      judge() {
         if(this.type == 'now-playing' && this.nowPlayingList.length == 0){
           this.getNowPlayingList()
         }else if(this.type == 'coming-soon' && this.comingList.length == 0){
@@ -61,7 +68,8 @@
       changeTab(v) {
         if(this.type == v) return false
         this.type = v
-        this.jugdge()
+        this.$router.replace({params:{type:this.type}})
+        this.judge()
       }
     },
     computed: {
